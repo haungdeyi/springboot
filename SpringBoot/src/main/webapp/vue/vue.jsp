@@ -27,7 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
    <body>
      <div id="vue1">
-        <!-- v-cloak解决插值表达式的闪现问题 -->
+        <!-- Vue指令后面跟的是vm实例data对象的属性名 -->
+        
+        <!-- v-cloak解决插值表达式的闪烁问题 -->
         <p v-cloak>{{msg}}</p>
         
         <!-- v-text也可以解决插值表达式闪烁问题，并完全替换元素内容 -->
@@ -36,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- v-html将插值表达式的值解析为html元素 -->
         <p v-html="msg2"></p>
         
-        <!-- v-bind用于绑定变量,实现数据的单向绑定。可以简写为: -->
+        <!-- v-bind用于将标签元素的属性绑定到vm实例中的model属性,实现数据的单向绑定。可以简写为: -->
         <input type="button" value="按钮" v-bind:title="button_title"/>
         
         <!-- v-if用于判断 -->
@@ -75,13 +77,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <!-- 使用事件修饰符 : .stop(阻止冒泡)     .prevent(阻止默认行为) 
                             .onece(只触发一次)  .self(只触发自身绑定的事件)
-                            .captuer(一捕获事件马上触发)
+                            .captuer(一捕获事件马上触发，不用等到冒泡阶段再触发)
         -->
         
         <!-- 绑定class属性 -->
         <p><a :class="classAttr" href="#" @click.prevent="prevent()">阻止事件的默认行为</a></p>
         
-        <!-- 绑定style -->
+        <!-- 绑定style属性 -->
         <p :style="style">你好呀</p>
         
         <!-- 使用过滤器 -->
@@ -132,6 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	  inserted : function(element,binding){
     		  //使用隐藏的参数集取得第一个参数
     		  arguments[0].focus();
+    		  //value属性是使用自定义指令时传递给指令的参数值
     		  console.log(binding.value);
     	  },
     	  //更新时调用的函数

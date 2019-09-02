@@ -16,9 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <meta http-equiv="expires" content="0">    
        <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
        <meta http-equiv="description" content="This is my page">
-       <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-       <script type="javascript/text" src="js/jquery-3.4.1.js"></script>
-       <script type="javascript/text" src="js/bootstrap.js"></script>
+       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
+       <script type="javascript/text" src="${pageContext.request.contextPath}/js/jquery-3.4.1.js"></script>
+       <script type="javascript/text" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
        <script type="text/javascript" src="${pageContext.request.contextPath}/js/vue.2.0.js"></script>
    </head>
 
@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a href="#" v-on:click.prevent="changeComponent('login')">私有组件</a>
         <component :is="componentName"></component><hr>
         
-        <!-- 通过属性绑定向子组件传递父组件的数据 -->
+        <!-- 通过组件属性绑定向子组件传递父组件的数据 -->
         <login v-bind:parentmsg="parentCompMsg"></login>
         
         <!-- 通过事件绑定向子组件传递父组件的方法 -->
@@ -48,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <!-- 通过ref得到原生DOM对象 -->
         <h1 id="ref" ref="ref">通过ref得到原生DOM对象</h1>
+        <a class="btn btn-success" href="#" v-on:click.prevent="getRef()">点这里得到ref</a>
       </div>
       
       <!-- 在外部定义组件的模板，方便代码提示。要放在被Vue控制的区域外 -->
@@ -115,6 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      			 //this.flag = !this.flag;
      			 this.componentName = componentName;
      		  }
+    		  //得到ref属性
+    		  getRef : function(){
+    			  //得到原生js标签对象的text
+    			  alert(this.refs.ref.innerText);
+    		  }
     	  },
     	  //定义Vue实例私有组件(子组件)
     	  components : {
