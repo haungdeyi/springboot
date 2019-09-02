@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
 	//启动运用
-	public static void main(String[] agrs) {
+	public static void main(String[] args) {
 		SpringApplication.run(Application.class);
 	}
 }
