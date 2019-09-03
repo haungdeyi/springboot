@@ -44,6 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <login v-bind:parentmsg="parentCompMsg"></login>
         
         <!-- 通过事件绑定向子组件传递父组件的方法 -->
+        <!-- func是子组件自定义的一个事件，通过$.emit()触发 -->
+        <!-- 父组件在这个自定义事件上添加了监听，当子组件触发这个事件时，父组件的监听处理方法会执行 -->
         <login v-on:func="parentComponentMethod"></login>
         
         <!-- 通过ref得到原生DOM对象 -->
@@ -107,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		  componentName : ""
     	  },
     	  methods : {
-    		  //用于向子组件传递的 方法
+    		  //监听子组件特定事件触发的处理函数
     		  parentComponentMethod : function(){
     			  alert("我是父类中的方法");
     		  },
@@ -115,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		  changeComponent : function(componentName){
      			 //this.flag = !this.flag;
      			 this.componentName = componentName;
-     		  }
+     		  },
     		  //得到ref属性
     		  getRef : function(){
     			  //得到原生js标签对象的text
@@ -126,12 +128,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	  components : {
     		login : {
     			template : "#template",
-   				//组件中的属性
+   				//组件中的属性，用来接收父组件的数据
    	    		props : ["parentmsg"],
    	    	    //组件中的方法集
    	    		methods : {
    	    			subClick : function(){
+   	    				//子组件触发自定义的func事件，父组件的监听事件会执行，可以在这里向父组件传送数据
    	    				this.$emit('func');
+   	    				
+   	    				//通过父链直接操作父组件中的数据(不推荐)
+   	    				this.$parent.parentCompMsg = "直接改父组件额度数据";
    	    			}
    	    		}
     		}, 

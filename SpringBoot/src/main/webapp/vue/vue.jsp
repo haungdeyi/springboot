@@ -27,7 +27,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
    <body>
      <div id="vue1">
-        <!-- Vue指令后面跟的是vm实例data对象的属性名 -->
+        <!-- 插值表达式{{}}只能取得基本数据类型,并不能执行函数。 -->
+        {{ohterCounted}}
+        
+        <!-- Vue指令后面跟的是vm实例一系列配置对象（即el、data、methods、filters等等）中的属性名-->
+        <button :class="classAttr" @click="prevent()">what???</button>
         
         <!-- v-cloak解决插值表达式的闪烁问题 -->
         <p v-cloak>{{msg}}</p>
@@ -70,7 +74,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </table>
         
         <!-- v-model命令用于双向绑定模型数据 -->
-        <label>改变model数据</label><input type="text" v-model="msg"/>
+        <label>改变model数据</label><input type="text" v-model="msg"/><hr>
+        
+        <!-- 单选框 -->
+        <label>单独使用单选框</label><input type="radio" :checked="picked" value="单选框"><hr>
+        
+        <!-- 组合使用单选框  -->
+        <label>html</label><input type="radio" v-model="pickeds" value="html"><br>
+        <label>css</label><input type="radio" v-model="pickeds" value="css"><br>
+        <label>js</label><input type="radio" v-model="pickeds" value="js">
+        <p>选择了：{{pickeds}}</p><hr>
+        
+        <!-- 复选框 -->
+        <input type="checkbox" v-model="checked"/><label>单独使用复选框</label>
+        <p>多选的是：{{checked}}</p><hr>
+        
+        <!-- 组合使用复选框 -->
+        <input type="checkbox" v-model="checkeds" value="C语言"/><label>C语言</label>
+        <input type="checkbox" v-model="checkeds" value="C++"/><label>C++</label>
+        <input type="checkbox" v-model="checkeds" value="java"/><label>java</label>
+        <p>多选的是：{{checkeds}}</p><hr>
+        
+        <!-- 下拉选择框 -->
+        <select v-model="selected" multiple>
+           <option>张三</option>
+           <option value="lisi">李四</option>
+           <option>王五</option>
+        </select>
+        <p>下拉单选的是：{{selected}}</p><hr>
         
         <!-- v-on命令用于绑定事件。可以简写成@ -->
         <p><button class="btn btn-success" v-on:click="changeMsg()">点我点我</button></p>
@@ -91,6 +122,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <!-- 当前时间 -->
         <p>当前日期：{{dateStr | transDate}}</p>
+        
+        <!-- 计算属性 -->
+        <p>涨价后：{{count}}</p>
         
         <!-- 使用自定义指令 -->
         <label>焦点在这里:</label><input type="text" v-focus="'指令的参数'"/>
@@ -153,16 +187,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		  button_title : "我是按钮",
     		  upper : "abc",
     		  array :[{name:"张三",age:250},{name:"李四",age:251}],
-    		  object : {phone:1111,email:"qq.com"},
+    		  object : {phone:1111,email:"qq.com",method:function(){return "你好";}},
     		  //有“-”时需要把属性放在''中
     		  classAttr : {btn:true,'btn-primary':true},
     		  style : {'font-size':'100px'},
     		  keywords : "二狗子",
     		  dateStr : "2019-08-31 12:00:00",
     		  flag : true,
+    		  price : 250,
+    		  picked : true,
+    		  pickeds : "css",
+    		  checked : true,
+    		  checkeds : ["java"],
+    		  selected : ["张三","李四"],
     	  },
     	  
-    	  //函数集
+    	  //实例函数集
     	  methods :{
     		  changeMsg : function(){
     			  this.msg = "你点击了按钮";
@@ -221,9 +261,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	  
     	  //计算属性集
     	  computed :{
+    		  //方式一
     		  count : function(){
-    			 //业务逻辑  
-    		  }
+    			 //业务逻辑 
+    			 return this.price *= 1.25;
+    		  },
+    	  
+    	      //方式二(不常用)
+    	      ohterCounted :{
+     			 get : function(){
+     				 return "插值表达式能取到这里";
+     			 },
+     			 
+     			 set : function(){
+     				 //在这里定义写入时的业务
+     			 }
+    	      }
     	  },
     	  
     	  //观察属性
