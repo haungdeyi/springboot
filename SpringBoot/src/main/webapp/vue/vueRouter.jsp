@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <router-link to="/login?id=10">登陆</router-link>
         <router-link to="/register/二踢脚">注册</router-link>
         <router-view></router-view>
-      </div>
+       </div>
    </body>
    <script type="text/javascript">
        
