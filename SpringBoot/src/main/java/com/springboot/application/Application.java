@@ -15,11 +15,11 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 	
-	@Test
+/*	@Test
 	public void hello(){
 		Calendar cld = Calendar.getInstance();
         cld.add(Calendar.DATE, 0);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(cld.getTime());
         System.out.println(cld.getTime());
-	}
+	}*/
 }
