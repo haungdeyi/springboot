@@ -27,14 +27,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
    </body>
    <script type="text/javascript">
-      function MVVM(options){
+      /* function MVVM(options){
     	 var _this = this;
     	 //让当前对象的data指向options的data
     	 this.data = options.data;
     	 Object.keys(options.data).forEach(function(key){
     		 _this.proxyData(key);
     	 });
-      }
+      } */
       
       MVVM.prototype = {
     		  proxyData : function(key){
