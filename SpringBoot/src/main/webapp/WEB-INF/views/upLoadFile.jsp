@@ -19,40 +19,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css">
        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.4.1.js"></script>
        <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-       <script type="text/javascript" src="${pageContext.request.contextPath}/js/simpleMVVM.js"></script>
+       <script type="text/javascript" src="${pageContext.request.contextPath}/js/vue.2.0.js"></script>
+       <script type="text/javascript" src="${pageContext.request.contextPath}/js/vue-router-3.1.3.js"></script>
    </head>
 
    <body>
-      <div id="app">
-         <div>aaaaa</div>
-         <input id="p1" type="text" x-model="directive"/>
-         <p id="p2">{{id}}</p>
-         <a class="btn btn-success" href="javasrcipt:void(0)" onclick="MVVM()">点我啊</a>
-         <ul>
-            <li>{{directive}}</li>
-            <li></li>
-         </ul>
-         <input type="text" x-model="student.name"/>
-         <p>{{student.name}}</p>
-         <input type="text" x-model="student.books.bookName"/>
-         <p>{{student.books.bookName}}</p>
-         <button class="btn btn-danger" x-onclick="YES">哈哈哈哈</button>
-      </div>
+       <form id="form" action="${pageContext.request.contextPath}/uploadFile" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+               <label class="col-lg-2">用户名：</label>
+               <input class="form-control col-lg-10" type="text" name="username"/>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-2">请选择图片：</label>
+              <input class="form-control col-lg-2" type="file" name="file"/>
+          </div>
+          
+          <button id="btn" class="btn btn-info form-control">注册</button>
+       </form>
    </body>
    <script type="text/javascript">
-        var vm = new MVVM({
-        	el : "#app",
-            data : {
-            	directive : "替换后的指令",
-            	id : "???",
-            	student : {name:"张三",age:21,books:{bookName : "麻雷子"}}
-            },
-            methods : {
-            	YES : function(){
-            	   this.directive = "哈哈哈啊哈哈哈哈"
-            	}
-            }
-        });
-        
+          let btn = document.getElementById("btn");
+          btn.addEventListener("click",function(event){
+        	  document.getElementById("form").submit();
+          });
    </script>
 </html>
