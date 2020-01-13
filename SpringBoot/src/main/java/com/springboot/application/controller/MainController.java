@@ -123,7 +123,7 @@ public class MainController {
 	public void downloadFile(HttpServletResponse response) throws IOException {
 		FileInputStream in = new FileInputStream("D:\\photoDir\\A\\a4ed6912-2e10-4274-8559-b5a119ad532a.jpg");
 		OutputStream os = response.getOutputStream();
-		//第一种方式,一次性写入
+		////直接响应给客户端（一次性响应）
 		/*byte[] bytes = new byte[in.available()];
 		in.read(bytes);
 		os.write(bytes);
@@ -132,7 +132,7 @@ public class MainController {
 		
 		
 		
-		//第二种方式
+		//直接响应给客户端（分段响应）
 		byte[] bytes = new byte[1024];
 		int length;
 		//将图片转成字节并写入响应流中
@@ -141,6 +141,23 @@ public class MainController {
 		}
 		os.flush();
 		os.close();
+		
+		//提供客户端下载文件功能
+		//设置响应类型为二进制流数据
+		/*response.setContentType("application/octet-stream; charset=UTF-8");
+		//设置响应头为Content-Disposition，让用户选择打开或者下载（默认是打开）
+		//value中一定要加上attachment，表示这是一个附件,后面可以指定文件名
+		response.setHeader("Content-Disposition", "attachment;filename=" + "phoot.jpg");
+		//设置文件的长度
+		response.setContentLength(in.available());
+		byte[] photo = new byte[in.available()];
+		//将图片转换字节数组并读取到photo中
+		in.read(photo);
+		//将图片转换出来的字节数组响应给客户端
+		os.write(photo);
+		os.flush();
+		os.close();
+		*/
 	}
 	
 	//测试RequestBody
